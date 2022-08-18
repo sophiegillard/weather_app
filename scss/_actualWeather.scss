@@ -1,0 +1,14 @@
+.forecast__actual{
+    margin: 2rem;
+    &__city{
+        font-size: 2rem;
+        font-weight: 600;
+    }
+    &__degree{
+        font-size: 7rem;
+    }
+    &__weather{
+        font-weight: 300;
+        font-style: italic;
+    }
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForeCast</title>
+    <script src="script.js" defer></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1 id="app__title">Weather App</h1>
+        <div id="search">
+            <input type="text" id="search__filter" placeholder="Search for a city">
+            <img id="search__icon" src="images/search.png" alt="search_icon" id="search__icon">
+        </div>
+    </header>
+
+    <main>
+        <section class="forecast__actual">
+            <h2 class="forecast__actual__city">Charleroi</h2>
+            <p class="forecast__actual__degree">19°</p>
+            <p class="forecast__actual__weather">Cloudy</p>
+        </section>
+
+        <section class="forecast__hourly">
+            <h3 class="forecast__hourly__title secondary__title">Hourly Forecast</h3>
+            <div class="forecast__hourly__cards">
+                <div class="hourly__card">
+                    <time class="hourly__card__time">12AM</time>
+                    <img class="hourly__card__icon" src="/images/weather.svg" alt="">
+                    <p class="hourly__card__degree">19<span>&#176;</span></p>
+                </div>
+                <div class="hourly__card">
+                <time class="hourly__card__time">14AM</time>
+                    <img class="hourly__card__icon" src="images/weather.svg" alt="">
+                    <p class="hourly__card__degree">19<span>&#176;</span></p>
+                </div>
+                <div class="hourly__card">
+                <time class="hourly__card__time">14AM</time>
+                    <img class="hourly__card__icon" src="images/weather.svg" alt="">
+                    <p class="hourly__card__degree">19<span>&#176;</span></p>
+                </div>
+                <div class="hourly__card">
+                <time class="hourly__card__time">14AM</time>
+                    <img class="hourly__card__icon" src="images/weather.svg" alt="">
+                    <p class="hourly__card__degree">19<span>&#176;</span></p>
+                </div>
+                <div class="hourly__card">
+                <time class="hourly__card__time">14AM</time>
+                    <img class="hourly__card__icon" src="images/weather.svg" alt="">
+                    <p class="hourly__card__degree">19<span>&#176;</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="forecast__weekly">
+            <h3 class="forecast__weekly__title secondary__title">Weekly Forecast</h3>
+            <div class="forecast__weekly__cards">
+                <div class="weekly__card">
+                    <img class="weekly__card__icon" src="images/weather.svg" alt="">
+                    <p class="weekly__card__time">MON</p>
+                    <p class="weekly__card__weather">Cloudy</p>
+                    <p class="weekly__card__maxDegree">21<span>&#176;</span></p>
+                    <p class="weekly__card__mindegree">17<span>&#176;</span></p>
+                </div>
+                <div class="weekly__card">
+                    <img class="weekly__card__icon" src="images/weather.svg" alt="">
+                    <p class="weekly__card__time">MON</p>
+                    <p class="weekly__card__weather">Cloudy</p>
+                    <p class="weekly__card__maxDegree">21<span>&#176;</span></p>
+                    <p class="weekly__card__mindegree">17<span>&#176;</span></p>
+                </div>
+                <div class="weekly__card">
+                    <img class="weekly__card__icon" src="images/weather.svg" alt="">
+                    <p class="weekly__card__time">MON</p>
+                    <p class="weekly__card__weather">Cloudy</p>
+                    <p class="weekly__card__maxDegree">21<span>&#176;</span></p>
+                    <p class="weekly__card__mindegree">17<span>&#176;</span></p>
+                </div>
+                <div class="weekly__card">
+                    <img class="weekly__card__icon" src="images/weather.svg" alt="">
+                    <p class="weekly__card__time">MON</p>
+                    <p class="weekly__card__weather">Cloudy</p>
+                    <p class="weekly__card__maxDegree">21<span>&#176;</span></p>
+                    <p class="weekly__card__mindegree">17<span>&#176;</span></p>
+                </div>
+                <div class="weekly__card">
+                    <img class="weekly__card__icon" src="images/weather.svg" alt="">
+                    <p class="weekly__card__time">MON</p>
+                    <p class="weekly__card__weather">Cloudy</p>
+                    <p class="weekly__card__maxDegree">21<span>&#176;</span></p>
+                    <p class="weekly__card__mindegree">17<span>&#176;</span></p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,58 @@
+@import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
+.forecast__actual {
+  margin: 2rem;
+}
+.forecast__actual__city {
+  font-size: 2rem;
+  font-weight: 600;
+}
+.forecast__actual__degree {
+  font-size: 7rem;
+}
+.forecast__actual__weather {
+  font-weight: 300;
+  font-style: italic;
+}
+
+.forecast__hourly__cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.forecast__weekly__cards {
+  height: 90px;
+}
+
+.weekly__card {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 1fr 1fr 1fr;
+}
+.weekly__card__icon {
+  height: 50px;
+}
+
+body {
+  text-align: center;
+}
+
+header {
+  text-align: center;
+}
+header #app__title {
+  border-bottom: solid rgb(0, 0, 0) 2px;
+}
+header #search {
+  display: grid;
+  grid-template-columns: 9fr 1fr;
+  margin: 2rem;
+}
+header #search__icon {
+  height: 1.5rem;
+}
+
+.secondary__title {
+  font-size: 0.8rem;
+  text-align: left;
+  margin: 1rem;
+}

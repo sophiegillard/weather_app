@@ -1,0 +1,13 @@
+.forecast__weekly{
+    &__cards{
+        height: 90px;
+    }
+}
+
+.weekly__card{
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr 1fr;
+    &__icon{
+        height: 50px;
+    }
+}

@@ -1,0 +1,7 @@
+.forecast__hourly{
+    &__cards{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
