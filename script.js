@@ -26,8 +26,8 @@ const fetchForecast = async (url) => {
     headerCard(result.city.name, result.list[0].main.temp, result.list[0].weather[0].description)
     contentCard()
     // hourlyCard(2, "images/weather.svg", 29)
-    for (let i = 0, n = 3; i < 5; i++, n++) {
-        hourlyCard(n+3, `http://openweathermap.org/img/wn/${result.list[0].weather[0].icon}@2x.png`, result.list[i].main.temp)
+    for (let i = 0, n = 3; i < 5; i++, n+=3) {
+        hourlyCard(n, `http://openweathermap.org/img/wn/${result.list[0].weather[0].icon}@2x.png`, result.list[i].main.temp)
         console.log(result.list[i].main.temp)
         
     }
