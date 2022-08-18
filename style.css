@@ -49,6 +49,7 @@ header #search {
 }
 header #search__icon {
   height: 1.5rem;
+  cursor: pointer;
 }
 
 .secondary__title {
