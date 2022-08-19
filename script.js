@@ -93,19 +93,6 @@ const contentCard = () => {
     forecast__hourly.appendChild(forecast__hourly__cards);
     return forecast__hourly__cards;
 
-    //WEEKLY CARDS
-    let forecast__weekly = document.createElement('div');
-    forecast__weekly.classList.add('forecast__weekly');
-    card__content.appendChild(forecast__weekly);
-
-    let forecast__weekly__title = document.createElement('h3');
-    forecast__weekly__title.classList.add('forecast__weekly__title');
-    forecast__weekly.appendChild(forecast__weekly__title);
-    forecast__weekly__title.innerHTML="Weekly Forecast"
-
-    let forecast__weekly__card = document.createElement('div');
-    forecast__weekly__card.classList.add('forecast__weekly__card');
-    forecast__weekly.appendChild(forecast__weekly__card);
 }
 
 const hourlyCard = (hours, icon, futureDegree) =>{
@@ -127,11 +114,4 @@ const hourlyCard = (hours, icon, futureDegree) =>{
     hourly__card__degree.classList.add('hourly__card__degree');
     hourly__card.appendChild(hourly__card__degree);
     hourly__card__degree.innerHTML = futureDegree +"°C"
-}
-
-const repeatHourlyCard =(temperature) =>{
-    for (let i = 0; i < 5; i++) {
-        console.log(temperatur)
-        
-    }
 }
