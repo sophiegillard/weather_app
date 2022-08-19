@@ -19,19 +19,20 @@ const urlWeather = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&un
 
 
 const fetchForecast = async (url) => {
+
     try{
     const response = await fetch(url)
     const result = await response.json()
+
+    //calling all functions to create the cards
     mainCard(city)
     headerCard(result.city.name, result.list[0].main.temp, result.list[0].weather[0].description)
     contentCard()
-    // hourlyCard(2, "images/weather.svg", 29)
+    console.log(result)
+    //Creating the hourly weather cards
     for (let i = 0, n = 3; i < 5; i++, n+=3) {
         hourlyCard(n, `http://openweathermap.org/img/wn/${result.list[0].weather[0].icon}@2x.png`, result.list[i].main.temp)
-        console.log(result.list[i].main.temp)
-        
     }
-console.log(result)
 
     } catch (e) {
         alert('ERROR : please enter a valid a city in English')
@@ -127,11 +128,4 @@ const hourlyCard = (hours, icon, futureDegree) =>{
     hourly__card__degree.classList.add('hourly__card__degree');
     hourly__card.appendChild(hourly__card__degree);
     hourly__card__degree.innerHTML = futureDegree +"°C"
-}
-
-const repeatHourlyCard =(temperature) =>{
-    for (let i = 0; i < 5; i++) {
-        console.log(temperatur)
-        
-    }
 }
