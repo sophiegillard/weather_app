@@ -1,6 +1,7 @@
 // ALL VARIABLES HERE
     //HTML Positions
-let city = document.getElementById('search__filter').value;
+// let ville = document.getElementById('search__filter').value;
+let ville;
 const loupeIcon = document.getElementById('search__icon');
 const form = document.getElementById('search');
 const main = document.getElementById('weather')
@@ -13,15 +14,17 @@ let formattedTime;
 let weekDay;
 
 
-//FUnction to get new value each time -- doesn't work !!!
-// searchFilter.addEventListener('keyup', getCityName=> {
-//     city = getCityName.target.value;
-// })
+//Function to get new value each time -- doesn't work !!!
+searchFilter.addEventListener('keyup', getCityName=> {
+    ville = getCityName.target.value;
+    return ville;
+})
 
-
-const urlWeather = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=35a424094f5768808cd0f9ac43b6d336`;
-
-
+loupeIcon.addEventListener('click', () =>{
+    let urlWeather = "http://api.openweathermap.org/data/2.5/forecast?q="+ville+"&units=metric&appid=35a424094f5768808cd0f9ac43b6d336";
+    fetchForecast(urlWeather)
+    document.getElementById('search__filter').value = ""
+})
 
 
 const fetchForecast = async (url) => {
@@ -32,49 +35,64 @@ const fetchForecast = async (url) => {
         // let weekDay = getWeekDay(result.list[0].dt)
 
         //calling all functions to create the cards
-        mainCard(city)
+        mainCard(result.city.name)
         headerCard(result.city.name, result.list[0].main.temp, result.list[0].weather[0].description)
-        contentCard(city)
-        contentCardHour(city)
-        contentCardWeek(city)
+        contentCard(result.city.name)
+        contentCardHour(result.city.name)
+        contentCardWeek(result.city.name)
         console.log(result)
 
         //Creating the hourly weather cards
         for (let i = 0; i < 5; i++) {
             let hours = getHourTime(result.list[i].dt)
 
-            hourlyCard(hours, `http://openweathermap.org/img/wn/${result.list[0].weather[0].icon}@2x.png`, result.list[i].main.temp)
+            hourlyCard(hours, `images/${result.list[0].weather[0].icon}.png`, result.list[i].main.temp)
+        }
+
+
+
+        for (let i = 0; i < 5; i++) {
+            let weekDay= getWeekDay(result.list[i].dt);
+            weeklyCard(result.city.name, `images/${result.list[0].weather[0].icon}.png`, weekDay, result.list[0].weather[0].main, result.list[0].main.temp_max, result.list[0].main.temp_min)
+            console.log(result.list[0].weather[0].icon)
         }
 
         //creating loops fot the weekly Forecast
-        result.list.forEach(element => {
-            console.log(element)
-            if(element.de_txt ==1661094000){
-                console.log('good day')
-            }
-        });
-        for (let i = 0; i < 40; i++) {
-            let weekDay= getWeekDay(result.list[i].dt);
-            // console.log(weekDay)
-            // console.log(result.list[i].dt_txt)
-            switch (weekDay) {
-                case 'MON':
-                    console.log(weekDay)
-                    let monday = []
-                    console.log(result.list[i].main.temp)
-                    monday.push(result.list[i].main.temp)
-                    console.log(monday)
+        // result.list.forEach(element => {
+        //     console.log(element)
+        //     if(element.de_txt ==1661094000){
+        //         console.log('good day')
+        //     }
+        // });
+        // for (let i = 0; i < 40; i++) {
+        //     let weekDay= getWeekDay(result.list[i].dt);
+        //     // console.log(weekDay)
+        //     // console.log(result.list[i].dt_txt)
+        //     if (weekDay == "MON") {
+        //         console.log(weekDay)
+        //             let monday = [result.list[i].main.temp]
+        //             console.log(result.list[i].main.temp)
+        //             monday.push(result.list[i+1].main.temp)
+        //             console.log(monday)
+        //     }
+            // switch (weekDay) {
+            //     case 'MON':
+            //         console.log(weekDay)
+            //         let monday = []
+            //         console.log(result.list[i].main.temp)
+            //         monday.push(result.list[i].main.temp)
+            //         console.log(monday)
                     
-                    break;
+            //         break;
             
-                default:
+            //     default:
 
-                    break;
-            }
+            //         break;
+            // }
             
-            }
+            // }
         
-        weeklyCard(city, `http://openweathermap.org/img/wn/${result.list[0].weather[0].icon}@2x.png`, weekDay, result.list[0].weather[0].main, result.list[0].main.temp_max, result.list[0].main.temp_min)
+        // weeklyCard(city, `http://openweathermap.org/img/wn/${result.list[0].weather[0].icon}@2x.png`, weekDay, result.list[0].weather[0].main, result.list[0].main.temp_max, result.list[0].main.temp_min)
 
 
     } catch (e) {
@@ -82,10 +100,6 @@ const fetchForecast = async (url) => {
         console.log(e)
     }
 }
-
-loupeIcon.addEventListener('click', () =>{
-    fetchForecast(urlWeather)
-})
 
 //CREATION OF CARDS -- BEGINNING
 const mainCard = (city) =>{
