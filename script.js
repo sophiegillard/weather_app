@@ -6,10 +6,12 @@ const form = document.getElementById('search');
 const main = document.getElementById('weather')
 const searchFilter = document.getElementById('search__filter');
     //Other variales
-let cardDiv;
-let forecast__hourly__cards;
-let forecast__weekly__cards;
-let card__content;
+let hoursDate;
+let hoursArr= []
+let resultArr=[];
+let formattedTime;
+let weekDay;
+
 
 //FUnction to get new value each time -- doesn't work !!!
 // searchFilter.addEventListener('keyup', getCityName=> {
@@ -20,24 +22,60 @@ let card__content;
 const urlWeather = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=35a424094f5768808cd0f9ac43b6d336`;
 
 
+
+
 const fetchForecast = async (url) => {
 
     try{
-    const response = await fetch(url)
-    const result = await response.json()
+        const response = await fetch(url)
+        const result = await response.json()
+        // let weekDay = getWeekDay(result.list[0].dt)
 
-    //calling all functions to create the cards
-    mainCard(city)
-    headerCard(result.city.name, result.list[0].main.temp, result.list[0].weather[0].description)
-    contentCard(city)
-    contentCardHour(city)
-    contentCardWeek(city)
-    console.log(result)
-    //Creating the hourly weather cards
-    for (let i = 0, n = 3; i < 5; i++, n+=3) {
-        hourlyCard(n, `http://openweathermap.org/img/wn/${result.list[0].weather[0].icon}@2x.png`, result.list[i].main.temp)
-    }
-    weeklyCard(city, `http://openweathermap.org/img/wn/${result.list[0].weather[0].icon}@2x.png`, 'Mon', 'Cloudy', 'maxDegree', 'minDegree')
+        //calling all functions to create the cards
+        mainCard(city)
+        headerCard(result.city.name, result.list[0].main.temp, result.list[0].weather[0].description)
+        contentCard(city)
+        contentCardHour(city)
+        contentCardWeek(city)
+        console.log(result)
+
+        //Creating the hourly weather cards
+        for (let i = 0; i < 5; i++) {
+            let hours = getHourTime(result.list[i].dt)
+
+            hourlyCard(hours, `http://openweathermap.org/img/wn/${result.list[0].weather[0].icon}@2x.png`, result.list[i].main.temp)
+        }
+
+        //creating loops fot the weekly Forecast
+        result.list.forEach(element => {
+            console.log(element)
+            if(element.de_txt ==1661094000){
+                console.log('good day')
+            }
+        });
+        for (let i = 0; i < 40; i++) {
+            let weekDay= getWeekDay(result.list[i].dt);
+            // console.log(weekDay)
+            // console.log(result.list[i].dt_txt)
+            switch (weekDay) {
+                case 'MON':
+                    console.log(weekDay)
+                    let monday = []
+                    console.log(result.list[i].main.temp)
+                    monday.push(result.list[i].main.temp)
+                    console.log(monday)
+                    
+                    break;
+            
+                default:
+
+                    break;
+            }
+            
+            }
+        
+        weeklyCard(city, `http://openweathermap.org/img/wn/${result.list[0].weather[0].icon}@2x.png`, weekDay, result.list[0].weather[0].main, result.list[0].main.temp_max, result.list[0].main.temp_min)
+
 
     } catch (e) {
         alert('ERROR : please enter a valid a city in English')
@@ -49,6 +87,7 @@ loupeIcon.addEventListener('click', () =>{
     fetchForecast(urlWeather)
 })
 
+//CREATION OF CARDS -- BEGINNING
 const mainCard = (city) =>{
     // Creating the main Div
     cardDiv = document.createElement('div');
@@ -96,6 +135,7 @@ const contentCardHour = (cityName) => {
 
     let forecast__hourly__title = document.createElement('h3');
     forecast__hourly__title.classList.add('forecast__hourly__title');
+    forecast__hourly__title.classList.add('secondary__title');
     forecast__hourly.appendChild(forecast__hourly__title);
     forecast__hourly__title.innerHTML="Hourly Forecast"
 
@@ -113,6 +153,7 @@ const contentCardWeek = (cityName) => {
 
     let forecast__weekly__title = document.createElement('h3');
     forecast__weekly__title.classList.add('forecast__weekly__title');
+    forecast__weekly__title.classList.add('secondary__title');
     forecast__weekly.appendChild(forecast__weekly__title);
     forecast__weekly__title.innerHTML="Weekly Forecast"
 
@@ -131,7 +172,7 @@ const hourlyCard = (hours, icon, futureDegree) =>{
     let hourly__card__time = document.createElement('time');
     hourly__card__time.classList.add('hourly__card__time');
     hourly__card.appendChild(hourly__card__time);
-    hourly__card__time.innerText = hours + "hours later";
+    hourly__card__time.innerText = hours;
 
     let hourly__card__icon = document.createElement('img');
     hourly__card__icon.classList.add('hourly__card__icon');
@@ -176,4 +217,34 @@ const weeklyCard = (cityName, icon, day, weather, maxDegree, minDegree) => {
     weekly__card__minDegree.classList.add('weekly__card__minDegree');
     weekly__card.appendChild(weekly__card__minDegree);
     weekly__card__minDegree.innerHTML = minDegree;
+}
+//CREATION OF CARDS -- END
+
+
+//Getting HOURS in the format 00:00
+const getHourTime = (unixSecond) =>{
+let unix_timestamp = unixSecond;
+// Create a new JavaScript Date object based on the timestamp
+// multiplied by 1000 so that the argument is in milliseconds, not seconds.
+var date = new Date(unix_timestamp * 1000);
+// Hours part from the timestamp
+var hours = date.getHours();
+// Minutes part from the timestamp
+var minutes = "0" + date.getMinutes();
+// Seconds part from the timestamp
+var seconds = "0" + date.getSeconds();
+
+var day= date.getDay();
+
+// Will display time in 10:30:23 format
+return formattedTime = hours + ':' + minutes.substr(-2);
+}
+
+// Display the weekDay
+const getWeekDay = (unixSecond) =>{
+    const weekday = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+    let unix_timestamp = unixSecond;
+    let date = new Date(unix_timestamp * 1000);
+
+    return weekDay = weekday[date.getDay()];
 }
