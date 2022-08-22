@@ -24,7 +24,29 @@ loupeIcon.addEventListener('click', () =>{
     let urlWeather = "http://api.openweathermap.org/data/2.5/forecast?q="+ville+"&units=metric&appid=35a424094f5768808cd0f9ac43b6d336";
     fetchForecast(urlWeather)
     document.getElementById('search__filter').value = ""
+
+    const key = "cities"
+    const value = ville
+    console.log(key)
+    console.log(value)
+
+    if (key && value){
+        localStorage.setItem(key, value)
+
+    }
 })
+
+for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    const value = localStorage.getItem(key);
+
+    console.log(`${key} : ${value}`)
+    let urlWeather = "http://api.openweathermap.org/data/2.5/forecast?q="+ville+"&units=metric&appid=35a424094f5768808cd0f9ac43b6d336";
+
+    
+}
+
+
 
 
 const fetchForecast = async (url) => {
@@ -46,15 +68,19 @@ const fetchForecast = async (url) => {
         for (let i = 0; i < 5; i++) {
             let hours = getHourTime(result.list[i].dt)
 
-            hourlyCard(hours, `images/${result.list[0].weather[0].icon}.png`, result.list[i].main.temp)
+            hourlyCard(hours, `images/${result.list[i].weather[0].icon}.png`, result.list[i].main.temp)
         }
 
 
-
-        for (let i = 0; i < 5; i++) {
-            let weekDay= getWeekDay(result.list[i].dt);
-            weeklyCard(result.city.name, `images/${result.list[0].weather[0].icon}.png`, weekDay, result.list[0].weather[0].main, result.list[0].main.temp_max, result.list[0].main.temp_min)
-            console.log(result.list[0].weather[0].icon)
+        // Creating loop for weekDay
+        for (let i = 0, n = 5; i < 6; i++, n+=7) {
+            if ((i+n)>40){
+                break;
+            }
+            else{
+            let weekDay= getWeekDay(result.list[i+n].dt);
+            weeklyCard(result.city.name, `images/${result.list[i+n].weather[0].icon}.png`, weekDay, result.list[i+n].weather[0].main, result.list[i+n].main.temp_max, result.list[i+n].main.temp_min)
+            }
         }
 
         //creating loops fot the weekly Forecast
@@ -262,3 +288,4 @@ const getWeekDay = (unixSecond) =>{
 
     return weekDay = weekday[date.getDay()];
 }
+
