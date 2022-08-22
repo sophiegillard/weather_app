@@ -3,30 +3,44 @@
 
 body{
     text-align: center;
+    background-color: #dde6ee;
+    font-family: 'Archivo', sans-serif;
 }
 
 header{
     text-align: center;
     #app__title{
         border-bottom: solid rgb(0, 0, 0) 2px;
+        text-transform: uppercase;
+        font-weight: 200;
     }
     #search{
         display: grid;
         grid-template-columns: 9fr 1fr;
 
-        margin: 2rem;
-        // &__filter{
+        margin: 1rem;
+        margin-bottom: -2rem;
 
-        // }
+        background-color: #A4AFBA;
+        border-radius: 10px;
+        &__filter{
+            border-radius: 10px 0px 0px 10px;
+        }
         &__icon{
-            height: 1.5rem;
             cursor: pointer;
+            padding: 0.3rem;
         }
     }
 }
 .secondary__title{
-    font-size: 1rem;
+    font-size: 0.8rem;
     text-align: left;
     left:0;
-    margin: 2rem;
+    margin: 1rem;
+    text-transform: uppercase;
+    font-weight: 100;
+}
+
+.card{
+    margin-top: 3em;
 }

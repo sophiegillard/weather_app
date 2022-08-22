@@ -12,6 +12,8 @@ let hoursArr= []
 let resultArr=[];
 let formattedTime;
 let weekDay;
+let bkPicture;
+let imageBackGround;
 
 
 //Function to get new value each time -- doesn't work !!!
@@ -25,6 +27,8 @@ loupeIcon.addEventListener('click', () =>{
     fetchForecast(urlWeather)
     document.getElementById('search__filter').value = ""
 
+
+    //TRYING TO GET LOCAL STORAGE
     const key = "cities"
     const value = ville
     console.log(key)
@@ -35,6 +39,7 @@ loupeIcon.addEventListener('click', () =>{
 
     }
 })
+
 
 for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
@@ -54,6 +59,8 @@ const fetchForecast = async (url) => {
     try{
         const response = await fetch(url)
         const result = await response.json()
+        let bkPicture;
+        let cardHeader;
         // let weekDay = getWeekDay(result.list[0].dt)
 
         //calling all functions to create the cards
@@ -79,46 +86,32 @@ const fetchForecast = async (url) => {
             }
             else{
             let weekDay= getWeekDay(result.list[i+n].dt);
-            weeklyCard(result.city.name, `images/${result.list[i+n].weather[0].icon}.png`, weekDay, result.list[i+n].weather[0].main, result.list[i+n].main.temp_max, result.list[i+n].main.temp_min)
+            weeklyCard(result.city.name, `images/${result.list[i+n].weather[0].icon}.png`, weekDay, result.list[i+n].weather[0].main, result.list[i+n].main.temp, result.list[i+n].main.temp)
             }
         }
 
-        //creating loops fot the weekly Forecast
-        // result.list.forEach(element => {
-        //     console.log(element)
-        //     if(element.de_txt ==1661094000){
-        //         console.log('good day')
-        //     }
-        // });
-        // for (let i = 0; i < 40; i++) {
-        //     let weekDay= getWeekDay(result.list[i].dt);
-        //     // console.log(weekDay)
-        //     // console.log(result.list[i].dt_txt)
-        //     if (weekDay == "MON") {
-        //         console.log(weekDay)
-        //             let monday = [result.list[i].main.temp]
-        //             console.log(result.list[i].main.temp)
-        //             monday.push(result.list[i+1].main.temp)
-        //             console.log(monday)
-        //     }
-            // switch (weekDay) {
-            //     case 'MON':
-            //         console.log(weekDay)
-            //         let monday = []
-            //         console.log(result.list[i].main.temp)
-            //         monday.push(result.list[i].main.temp)
-            //         console.log(monday)
-                    
-            //         break;
+        //FETCH PITCURES API
+        const fetchPictures = async (urlFetch) =>{
+            try{
+                const response = await fetch (urlFetch);
+                const resultPic = await response.json()
             
-            //     default:
+                cardHeader= document.getElementsByClassName(`card__header ${result.city.name}`)[0]
+    
+                cardHeader.style.background = 'url(' + resultPic["results"][0]["urls"]["regular"]+')';
+                cardHeader.style.backgroundPosition = 'center center';
+                cardHeader.style.backgroundSize = 'cover';
+                return cardHeader;
+            }
+            catch(e){
+                alert('no picture found')
+                console.log(e)
+            }
+        }
 
-            //         break;
-            // }
-            
-            // }
+        let urlphotos= `https://api.unsplash.com/search/photos?query=${ville}&client_id=LXFnKFlXOktGEqfGNNe8p-z5DtielDkONj9s-EWYJmw`;
+        fetchPictures(urlphotos)
         
-        // weeklyCard(city, `http://openweathermap.org/img/wn/${result.list[0].weather[0].icon}@2x.png`, weekDay, result.list[0].weather[0].main, result.list[0].main.temp_max, result.list[0].main.temp_min)
 
 
     } catch (e) {
@@ -127,6 +120,9 @@ const fetchForecast = async (url) => {
     }
 }
 
+
+
+
 //CREATION OF CARDS -- BEGINNING
 const mainCard = (city) =>{
     // Creating the main Div
@@ -134,27 +130,33 @@ const mainCard = (city) =>{
     cardDiv.classList.add('card');
     cardDiv.classList.add(city);
     main.appendChild(cardDiv);
-    return cardDiv;
+    
 }
 
 const headerCard = (cityName, cityDegree, cityWeather) =>{
     let card__header = document.createElement('section');
     card__header.classList.add('card__header');
+    card__header.classList.add(cityName);
     cardDiv.appendChild(card__header)
+
+    let card__header__content = document.createElement('div');
+    card__header__content.classList.add ('card__header__content');
+    card__header__content.classList.add(cityName);
+    card__header.appendChild( card__header__content);
 
     let forecast__actual__city = document.createElement('h2');
     forecast__actual__city.classList.add('forecast__actual__city');
-    card__header.appendChild(forecast__actual__city);
+    card__header__content.appendChild(forecast__actual__city);
     forecast__actual__city.innerHTML= cityName;
 
     let forecast__actual__degree = document.createElement('p');
     forecast__actual__degree.classList.add('forecast__actual__degree');
-    card__header.appendChild(forecast__actual__degree);
-    forecast__actual__degree.innerHTML = cityDegree;
+    card__header__content.appendChild(forecast__actual__degree);
+    forecast__actual__degree.innerHTML = cityDegree +"°";
 
     let forecast__actual__weather = document.createElement('p');
     forecast__actual__weather.classList.add('forecast__actual__weather');
-    card__header.appendChild(forecast__actual__weather);
+    card__header__content.appendChild(forecast__actual__weather);
     forecast__actual__weather.innerHTML = cityWeather;
 }
  //Creating card content but not the small weather cards
@@ -163,6 +165,7 @@ const contentCard = (cityName) => {
     card__content.classList.add('card__content');
     card__content.classList.add(cityName);
     cardDiv.appendChild(card__content)
+
 }
 
 //HOURS CARDS
@@ -248,15 +251,15 @@ const weeklyCard = (cityName, icon, day, weather, maxDegree, minDegree) => {
     weekly__card.appendChild(weekly__card__weather);
     weekly__card__weather.innerHTML = weather;
 
-    let weekly__card__maxDegree = document.createElement('p');
-    weekly__card__maxDegree.classList.add('weekly__card__maxDegree');
-    weekly__card.appendChild(weekly__card__maxDegree);
-    weekly__card__maxDegree.innerHTML = maxDegree;
+    // let weekly__card__maxDegree = document.createElement('p');
+    // weekly__card__maxDegree.classList.add('weekly__card__maxDegree');
+    // weekly__card.appendChild(weekly__card__maxDegree);
+    // weekly__card__maxDegree.innerHTML = maxDegree;
 
     let weekly__card__minDegree = document.createElement('p');
     weekly__card__minDegree.classList.add('weekly__card__minDegree');
     weekly__card.appendChild(weekly__card__minDegree);
-    weekly__card__minDegree.innerHTML = minDegree;
+    weekly__card__minDegree.innerHTML = minDegree +"°C";
 }
 //CREATION OF CARDS -- END
 
