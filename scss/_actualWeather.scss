@@ -1,11 +1,38 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    &__header{
+        padding-bottom: 6rem;
+        
+        &__content{
+            color:#43484D;
+            background-color: rgba(255, 255, 255, 0.735);
+            border: solid 8px rgba(255, 255, 255, 0.232);
+            margin: 4rem 1rem -2rem 1rem;
+            padding: 1rem;
+        }
+    }
+    &__content{
+        margin: -1rem 0rem -2rem 0rem;
+        background-color: #e8ecf0;
+        border-radius: 20px;
+        box-shadow: 1px 1px 5px 2px rgba(142,142,142,0.52);
+    }
+}
+
 .forecast__actual{
-    margin: 2rem;
     &__city{
-        font-size: 2rem;
-        font-weight: 600;
+        font-size: 3rem;
+        font-weight: 100;
+
+        text-transform: uppercase;
     }
     &__degree{
-        font-size: 7rem;
+        font-size: 3rem;
+        margin: 1rem;
+        font-weight: 500;
     }
     &__weather{
         font-weight: 300;
