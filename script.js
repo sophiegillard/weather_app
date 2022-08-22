@@ -46,7 +46,7 @@ for (let i = 0; i < localStorage.length; i++) {
     const value = localStorage.getItem(key);
 
     console.log(`${key} : ${value}`)
-    let urlWeather = "http://api.openweathermap.org/data/2.5/forecast?q="+ville+"&units=metric&appid=35a424094f5768808cd0f9ac43b6d336";
+    let urlWeather = "https://api.openweathermap.org/data/2.5/forecast?q="+ville+"&units=metric&appid=35a424094f5768808cd0f9ac43b6d336";
 
     
 }
