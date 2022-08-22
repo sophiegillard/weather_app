@@ -23,7 +23,7 @@ searchFilter.addEventListener('keyup', getCityName=> {
 })
 
 loupeIcon.addEventListener('click', () =>{
-    let urlWeather = "http://api.openweathermap.org/data/2.5/forecast?q="+ville+"&units=metric&appid=35a424094f5768808cd0f9ac43b6d336";
+    let urlWeather = "https://api.openweathermap.org/data/2.5/forecast?q="+ville+"&units=metric&appid=35a424094f5768808cd0f9ac43b6d336";
     fetchForecast(urlWeather)
     document.getElementById('search__filter').value = ""
 
